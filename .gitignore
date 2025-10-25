@@ -1,15 +1,28 @@
+# Configuration
 config/backup.conf
+
+# Backups
 backups/*
 !backups/.gitkeep
+
+# Logs
 logs/*
 !logs/.gitkeep
+
+# Snapshots
 snapshots/*
 !snapshots/.gitkeep
+
+# Temporary files
 *.tmp
 *.swp
 *~
+
+# Sensitive data
 *.key
 *.gpg
 *.pem
+
+# OS files
 .DS_Store
 Thumbs.db

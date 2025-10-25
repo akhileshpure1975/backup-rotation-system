@@ -1,0 +1,23 @@
+# Backup System Configuration
+
+SOURCE_DIRS=(
+    "$HOME/Documents"
+    "$HOME/Pictures"
+)
+
+BACKUP_DIR="$HOME/Projects/backup-rotation-system/backups"
+LOG_DIR="$HOME/Projects/backup-rotation-system/logs"
+LOG_FILE="${LOG_DIR}/backup_$(date +%Y-%m-%d).log"
+SNAPSHOT_DIR="$HOME/Projects/backup-rotation-system/snapshots"
+
+BACKUP_TYPE="full"
+RETENTION_DAYS=7
+
+EXCLUDE_PATTERNS=(
+    "*.tmp"
+    "*.cache"
+)
+
+ENABLE_ENCRYPTION=false
+ENABLE_EMAIL=false
+EMAIL_TO="admin@example.com"
