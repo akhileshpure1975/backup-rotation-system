@@ -1,0 +1,15 @@
+config/backup.conf
+backups/*
+!backups/.gitkeep
+logs/*
+!logs/.gitkeep
+snapshots/*
+!snapshots/.gitkeep
+*.tmp
+*.swp
+*~
+*.key
+*.gpg
+*.pem
+.DS_Store
+Thumbs.db
