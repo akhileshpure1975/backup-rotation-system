@@ -9,39 +9,29 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Set up environment
       run: |
         chmod +x scripts/*.sh utils/*.sh
-        
-    - name: Run tests
+
+    - name: Basic syntax check
       run: |
-        # Basic syntax check
         bash -n scripts/backup.sh
         bash -n scripts/restore.sh
         bash -n scripts/verify.sh
-        
+
     - name: Run shellcheck
       run: |
+        sudo apt-get update
         sudo apt-get install shellcheck -y
         shellcheck scripts/*.sh utils/*.sh || true
-        
-    - name: Test backup creation
+
+    - name: Test backup creation (sample config)
       run: |
         cp config/backup.conf.example config/backup.conf
-        # Add test configuration
-        
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Deploy notification
-      run: |
-        echo "Backup system tested and ready for deployment!"
+        # Here you can add: ./scripts/backup.sh
+        # Or safer, run with TEST directories to avoid large ops on CI
+
