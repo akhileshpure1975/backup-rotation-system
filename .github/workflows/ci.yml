@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI
 
 on:
   push:
@@ -7,31 +7,24 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up environment
-      run: |
-        chmod +x scripts/*.sh utils/*.sh
-
-    - name: Basic syntax check
-      run: |
-        bash -n scripts/backup.sh
-        bash -n scripts/restore.sh
-        bash -n scripts/verify.sh
-
-    - name: Run shellcheck
-      run: |
-        sudo apt-get update
-        sudo apt-get install shellcheck -y
-        shellcheck scripts/*.sh utils/*.sh || true
-
-    - name: Test backup creation (sample config)
-      run: |
-        cp config/backup.conf.example config/backup.conf
-        # Here you can add: ./scripts/backup.sh
-        # Or safer, run with TEST directories to avoid large ops on CI
-
+      - uses: actions/checkout@v3
+      
+      - name: Set executable permissions
+        run: chmod +x scripts/*.sh utils/*.sh
+      
+      - name: Syntax check scripts
+        run: |
+          bash -n scripts/backup.sh
+          bash -n scripts/restore.sh
+          bash -n scripts/verify.sh
+          bash -n scripts/backup_databases.sh || true
+      
+      - name: Run shellcheck linter
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+          shellcheck scripts/*.sh utils/*.sh || true
